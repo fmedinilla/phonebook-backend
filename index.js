@@ -43,6 +43,28 @@ app.get("/api/persons/:id", (request, response) => {
   }
 });
 
+app.post("/api/persons", (request, response) => {
+  const { body } = request;
+
+  if (!body.name) {
+    return response.status(400).json({ error: "name is required" });
+  }
+
+  if (!body.number) {
+    return response.status(400).json({ error: "number is required" });
+  }
+
+  const newPerson = {
+    id: Math.floor(Math.random() * 9999999999),
+    name: body.name,
+    number: body.number,
+  };
+
+  persons = persons.concat(newPerson);
+
+  response.status(201).json(newPerson);
+});
+
 app.delete("/api/persons/:id", (request, response) => {
   const id = Number.parseInt(request.params.id);
   persons = persons.filter((person) => person.id !== id);
