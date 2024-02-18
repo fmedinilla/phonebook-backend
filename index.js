@@ -43,6 +43,12 @@ app.get("/api/persons/:id", (request, response) => {
   }
 });
 
+app.delete("/api/persons/:id", (request, response) => {
+  const id = Number.parseInt(request.params.id);
+  persons = persons.filter((person) => person.id !== id);
+  response.status(204).end();
+});
+
 app.get("/info", (request, response) => {
   const len = persons.length;
   const phoneBookInfo = `<p>Phonebook has info for ${len} people.</p>`;
