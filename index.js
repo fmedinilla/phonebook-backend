@@ -54,6 +54,16 @@ app.post("/api/persons", (request, response) => {
     return response.status(400).json({ error: "number is required" });
   }
 
+  const duplicateName = persons
+    .map((person) => person.name)
+    .some((name) => name === body.name);
+
+  if (duplicateName) {
+    return response.status(400).json({ error: "name must be unique" });
+  }
+
+  console.log(duplicateName);
+
   const newPerson = {
     id: Math.floor(Math.random() * 9999999999),
     name: body.name,
