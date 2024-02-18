@@ -27,8 +27,17 @@ let persons = [
 
 const app = express();
 
+app.use(express.json());
+
 app.get("/api/persons", (request, response) => {
   response.status(200).json(persons);
+});
+
+app.get("/info", (request, response) => {
+  const len = persons.length;
+  const phoneBookInfo = `<p>Phonebook has info for ${len} people.</p>`;
+  const timeText = `${new Date()}`;
+  response.status(200).send(`${phoneBookInfo}${timeText}`);
 });
 
 app.listen(PORT, () => {
