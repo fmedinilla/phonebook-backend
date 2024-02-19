@@ -1,4 +1,5 @@
 const express = require("express");
+const morgan = require("morgan");
 
 const PORT = process.env.PORT ?? 3001;
 
@@ -28,6 +29,7 @@ let persons = [
 const app = express();
 
 app.use(express.json());
+app.use(morgan("tiny"));
 
 app.get("/api/persons", (request, response) => {
   response.status(200).json(persons);
